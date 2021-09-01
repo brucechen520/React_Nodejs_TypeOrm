@@ -1,9 +1,9 @@
 {
    "type": "mysql",
-   "host": "140.134.29.2",
+   "host": "",
    "port": 3306,
-   "username": "cslabweb",
-   "password": "cslabweb",
+   "username": "",
+   "password": "",
    "database": "test",
    "synchronize": false,
    "logging": false,
