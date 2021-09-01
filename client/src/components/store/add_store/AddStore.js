@@ -83,6 +83,7 @@ export default class AddStore extends React.Component {
                         />
                     </Form.Group>
                     <Button type="submit">Submit</Button>
+                    <Button onClick = {() => this.props.history.goBack() }>返回</Button>
                 </Form>
             </div>
         );

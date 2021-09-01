@@ -1,101 +1,54 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import Header from "../../../elements/header";
-import Sidebar from "../../../elements/sidebar";
 import { Redirect, useParams } from 'react-router-dom'
 import { Form, Button, Col, Row, InputGroup } from 'react-bootstrap';
 import { api } from '../../../models/api';
-
-// function UpdateStore () {
-//     const store = api.currentStore;
-//     let needRedirect = false;
-//     const handleSubmit = (event) => {
-//         const target = event.target;
-//         const form = {
-//             id: store.id, 
-//             title: target.title.value,
-//             address: target.address.value,
-//             phone: target.phone.value,
-//             owner: target.owner.value,
-//         }
-//         api.updateStore(form);
-//         return (<Redirect to="/store/list" />)
-//     }
-//     return (
-//         <div>
-            
-//             <Header title="Update Store" />
-//             <Form noValidate onSubmit={handleSubmit}>
-//                 <Form.Group as={Col} md="4" controlId="validationCustom01">
-//                     <Form.Label>店家名稱</Form.Label>
-//                     <Form.Control
-//                         required
-//                         type="text"
-//                         placeholder="Store title"
-//                         name="title"
-//                         defaultValue={store.title}
-//                     />
-//                 </Form.Group>
-//                 <Form.Group as={Col} md="4" controlId="validationCustom02">
-//                     <Form.Label>店家地址</Form.Label>
-//                     <Form.Control
-//                         required
-//                         type="text"
-//                         placeholder="Store address"
-//                         name="address"
-//                         defaultValue={store.address}
-//                     />
-//                 </Form.Group>
-//                 <Form.Group as={Col} md="4" controlId="validationCustom03">
-//                     <Form.Label>店家電話</Form.Label>
-//                     <Form.Control
-//                         required
-//                         type="text"
-//                         placeholder="Store phone"
-//                         name="phone"
-//                         defaultValue={store.phone}
-//                     />
-//                 </Form.Group>
-//                 <Form.Group as={Col} md="4" controlId="validationCustom04">
-//                     <Form.Label>店家負責人</Form.Label>
-//                     <Form.Control
-//                         required
-//                         type="text"
-//                         placeholder="Store owner"
-//                         name="owner"
-//                         defaultValue={store.owner}
-//                     />
-//                 </Form.Group>
-//                 <Button type="submit">Submit form</Button>
-//             </Form>
-//         </div>
-//     )
-// }
-
-// export default UpdateStore;
 
 export default class UpdateStore extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            store: api.currentStore,
-            needRedirect: false
+            stores: [],
+            store: {},
+            needRedirect: false,
         }
-
         this.handleSubmit = this.handleSubmit.bind(this);
         this.checkRedirect = this.checkRedirect.bind(this);
+        this.setCurrentStore = this.setCurrentStore.bind(this);
+        this.getStore = this.getStore.bind(this);
     }
 
-    handleSubmit(event) {
+    setCurrentStore() {
+        const storeid = parseInt(this.props.match.params.storeid);
+        for(const store of this.state.stores) {
+            if(store.id === storeid) {
+                this.setState({ store: store })
+                return
+            }
+        }
+    }
+    componentDidMount() {
+        this.getStore();
+    }
+
+    async getStore() {
+        const stores = await api.getStore();
+        console.log(stores);
+        this.setState({stores: stores});
+        this.setCurrentStore();
+    }
+
+    async handleSubmit(event) {
         const target = event.target;
-        const form = {
+        const store = {
             id: this.state.store.id, 
             title: target.title.value,
             address: target.address.value,
             phone: target.phone.value,
             owner: target.owner.value,
         }
-        api.updateStore(form);
+        await api.updateStore(store);
         this.setState({ needRedirect: true});
         return (<Redirect to="/store/list" />)
     }
@@ -152,6 +105,7 @@ export default class UpdateStore extends React.Component {
                         />
                     </Form.Group>
                     <Button type="submit">Submit form</Button>
+                    <Button onClick = {() => this.props.history.goBack() }>返回</Button>
                 </Form>
             </div>
         );

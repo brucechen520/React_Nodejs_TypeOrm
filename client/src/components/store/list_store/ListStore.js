@@ -21,7 +21,6 @@ export default class ListStore extends React.Component {
         this.renderList = this.renderList.bind(this);
         this.getStore = this.getStore.bind(this);
         this.deleteStore = this.deleteStore.bind(this);
-        this.setCurrentStore = this.setCurrentStore.bind(this);
     }
     componentDidMount() {
         this.getStore();
@@ -38,10 +37,6 @@ export default class ListStore extends React.Component {
         this.getStore();
     }
 
-    setCurrentStore(store) {
-        api.setCurrentStore(store);
-    }
-
     renderList(data) {
         const store = data.store;
         const arrId = data.id;
@@ -54,7 +49,7 @@ export default class ListStore extends React.Component {
                 <div><span>店家負責人: </span><span key={store.owner}>{store.owner}</span></div>
                 <div>
                     <Button onClick={() => this.deleteStore({id: arrId, store, store})}>刪除</Button>
-                    <Link to={url} onClick = {() => this.setCurrentStore(store)}><Button>更新</Button></Link>
+                    <Link to={url} ><Button>更新</Button></Link>
                 </div>
             </ListGroup.Item>
         )

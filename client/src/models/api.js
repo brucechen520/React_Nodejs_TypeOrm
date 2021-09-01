@@ -21,12 +21,7 @@ let stores = [];
 // }];
 
 export const api = {
-    currentStore: {},
-    stores: stores,
     API_HOST: window.location.hostname == 'localhost' ? 'http://127.0.0.1:9527/' : '',
-    setStore: (stores) => {
-        api.stores = stores;
-    },
     get: async (params) => {
         try {
             console.log(123)
@@ -44,48 +39,19 @@ export const api = {
     getStore: async (params) => {
         const res = await axios.get(api.API_HOST+`store`);
         const data = res.data.data
-        api.setStore(data);
-        console.log(api.stores)
+        console.log(data)
         return data
-        // const stores = await axios.get(url+"/stores" , { params: { token: this.token}})
-        //     .then(response => {
-        //         const employees = response.data.data.employees;
-        //         this.setState({ employees });
-        //     })
-        //     .catch(error => {
-        //         this.setState({ toDashboard: true });
-        //         console.log(error);
-        //     });
     },
     deleteStore: async (store) => {
         const res = await axios.delete(api.API_HOST+`store/delete`, { data: store});
         console.log(res);
-        // api.stores.splice(params.id, 1);
     },
     updateStore: async (store) => {
         const res = await axios.put(api.API_HOST+`store/update`, { data: store });
         console.log(res);
-        // for(let i = 0; i < api.stores.length; i++) {
-        //     if(api.stores[i].id === store.id) {
-        //         api.stores[i] = store;
-        //         break;
-        //     }
-        // }
     },
     addStore: async (store) => {
         const res = await axios.post(api.API_HOST+`store/add`, { data: store });
         console.log(res)
-        // api.stores.push(store);
     },
-    setCurrentStore: (store) => {
-        for(let i = 0; i < api.stores.length; i++) {
-            if(api.stores[i].id === store.id) {
-                api.currentStore = store;
-                break;
-            }
-        }
-    },
-    getCurrentStore: () => {
-        return api.currentStore;
-    }
 }
