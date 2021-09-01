@@ -22,21 +22,19 @@ export default class ListStore extends React.Component {
         this.getStore = this.getStore.bind(this);
         this.deleteStore = this.deleteStore.bind(this);
         this.setCurrentStore = this.setCurrentStore.bind(this);
-        // this.addStore = this.addStore.bind(this);
-        // this.listStore = this.listStore.bind(this);
-        // this.deleteStore = this.deleteStore.bind(this);
-        // this.updateStore = this.updateStore.bind(this);
     }
     componentDidMount() {
         this.getStore();
     }
 
-    getStore() {
-        this.setState({stores: api.getStore()});
+    async getStore() {
+        const stores = await api.getStore();
+        console.log(stores);
+        this.setState({stores: stores});
     }
 
-    deleteStore(store) {
-        api.deleteStore(store);
+    async deleteStore(store) {
+        await api.deleteStore(store.store);
         this.getStore();
     }
 

@@ -18,7 +18,7 @@ export default class AddStore extends React.Component {
         this.checkRedirect = this.checkRedirect.bind(this);
     }
 
-    handleSubmit(event) {
+    async handleSubmit(event) {
         const target = event.target;
         const form = {
             id: this.state.store.id, 
@@ -27,7 +27,7 @@ export default class AddStore extends React.Component {
             phone: target.phone.value,
             owner: target.owner.value,
         }
-        api.addStore(form);
+        await api.addStore(form);
         this.setState({ needRedirect: true});
     }
 
