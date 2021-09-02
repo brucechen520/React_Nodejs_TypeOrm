@@ -1,9 +1,9 @@
 {
    "type": "mysql",
-   "host": "",
+   "host": "140.134.29.2",
    "port": 3306,
-   "username": "",
-   "password": "",
+   "username": "mocakino",
+   "password": "mocakino",
    "database": "test",
    "synchronize": false,
    "logging": false,

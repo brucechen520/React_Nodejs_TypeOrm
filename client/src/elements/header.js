@@ -35,12 +35,19 @@ export default class Header extends React.Component {
                 <Navbar.Text>This page: {this.props.title} </Navbar.Text>
                 <Container>
                     <Navbar.Brand href="/layout">Home</Navbar.Brand>
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                     <Navbar.Collapse id="responsive-navbar-nav">
                         <Nav className="me-auto">
                         <NavDropdown title="Store" id="collasible-nav-dropdown">
                             <NavDropdown.Item href="/store/list">Store lists</NavDropdown.Item>
                             <NavDropdown.Item href="/store/add">Add a store</NavDropdown.Item>
+                        </NavDropdown>
+                        </Nav>
+                    </Navbar.Collapse>
+                    <Navbar.Collapse>
+                        <Nav className="me-auto">
+                        <NavDropdown title="Settings">
+                            <NavDropdown.Item href="/">Login</NavDropdown.Item>
+                            <NavDropdown.Item href="/register">Register</NavDropdown.Item>
                         </NavDropdown>
                         </Nav>
                     </Navbar.Collapse>

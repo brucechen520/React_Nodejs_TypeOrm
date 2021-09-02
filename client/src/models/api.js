@@ -21,7 +21,7 @@ let stores = [];
 // }];
 
 export const api = {
-    API_HOST: window.location.hostname == 'localhost' ? 'http://127.0.0.1:9527/' : '',
+    API_HOST: 'http://18.116.241.44:9527/',
     get: async (params) => {
         try {
             console.log(123)

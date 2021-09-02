@@ -3,15 +3,7 @@ import {createConnection} from "typeorm";
 import * as express from "express"; 
 import * as bodyParser from "body-parser";
 import {router} from "./router";
-const cors = require("cors");
-
-const corsOptions = {
-    origin: [
-      'http://localhost:3000',
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-};
+const cors = require('cors');
 
 createConnection().then(async connection => {
 
@@ -37,7 +29,9 @@ createConnection().then(async connection => {
     app.use(bodyParser.json());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
-    app.use(cors(corsOptions));
+    
+    app.use(cors());
+
     //primary routes
     app.get('/', (req, res) => {
         res.send('Work');

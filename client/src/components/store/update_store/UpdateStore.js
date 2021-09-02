@@ -50,7 +50,6 @@ export default class UpdateStore extends React.Component {
         }
         await api.updateStore(store);
         this.setState({ needRedirect: true});
-        return (<Redirect to="/store/list" />)
     }
 
     checkRedirect() {
@@ -59,9 +58,11 @@ export default class UpdateStore extends React.Component {
     }
 
     render() {
+        const needRedirect = this.state.needRedirect;
+        if (needRedirect) 
+            return (<Redirect to="/store/list" />)
         return (
             <div>
-                {this.checkRedirect()}
                 <Header title="Update Store" />
                 <Form noValidate onSubmit={this.handleSubmit}>
                     <Form.Group as={Col} md="4" controlId="validationCustom01">
