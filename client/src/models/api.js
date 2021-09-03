@@ -21,7 +21,8 @@ let stores = [];
 // }];
 
 export const api = {
-    API_HOST: 'http://18.116.241.44:9527/',
+    API_HOST: 'http://13.58.213.176:9527/',
+    $http: axios,
     get: async (params) => {
         try {
             console.log(123)
@@ -37,21 +38,21 @@ export const api = {
 
     },
     getStore: async (params) => {
-        const res = await axios.get(api.API_HOST+`store`);
+        const res = await api.$http.get(api.API_HOST+`store`);
         const data = res.data.data
         console.log(data)
         return data
     },
     deleteStore: async (store) => {
-        const res = await axios.delete(api.API_HOST+`store/delete`, { data: store});
+        const res = await api.$http.delete(api.API_HOST+`store/delete`, { data: store});
         console.log(res);
     },
     updateStore: async (store) => {
-        const res = await axios.put(api.API_HOST+`store/update`, { data: store });
+        const res = await api.$http.put(api.API_HOST+`store/update`, { data: store });
         console.log(res);
     },
     addStore: async (store) => {
-        const res = await axios.post(api.API_HOST+`store/add`, { data: store });
+        const res = await api.$http.post(api.API_HOST+`store/add`, { data: store });
         console.log(res)
     },
 }

@@ -21,7 +21,6 @@ export default class AddStore extends React.Component {
     async handleSubmit(event) {
         const target = event.target;
         const form = {
-            id: this.state.store.id, 
             title: target.title.value,
             address: target.address.value,
             phone: target.phone.value,
