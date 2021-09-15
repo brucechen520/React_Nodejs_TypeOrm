@@ -11,10 +11,8 @@ export default class UpdateStore extends React.Component {
         this.state = {
             stores: [],
             store: {},
-            needRedirect: false,
         }
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.checkRedirect = this.checkRedirect.bind(this);
         this.setCurrentStore = this.setCurrentStore.bind(this);
         this.getStore = this.getStore.bind(this);
     }
@@ -40,6 +38,7 @@ export default class UpdateStore extends React.Component {
     }
 
     async handleSubmit(event) {
+        event.preventDefault();
         const target = event.target;
         const store = {
             id: this.state.store.id, 
@@ -48,19 +47,17 @@ export default class UpdateStore extends React.Component {
             phone: target.phone.value,
             owner: target.owner.value,
         }
-        await api.updateStore(store);
-        this.setState({ needRedirect: true});
-    }
-
-    checkRedirect() {
-        if (this.state.needRedirect) 
-            return (<Redirect to="/store/list" />)
+        try {
+            const res = await api.updateStore(store);
+            // console.log(res);
+            this.props.history.push('/store/list');
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
-        const needRedirect = this.state.needRedirect;
-        if (needRedirect) 
-            return (<Redirect to="/store/list" />)
         return (
             <div>
                 <Header title="Update Store" />

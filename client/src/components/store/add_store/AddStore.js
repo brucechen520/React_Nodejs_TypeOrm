@@ -11,14 +11,13 @@ export default class AddStore extends React.Component {
         super(props);
         this.state = {
             store: api.currentStore,
-            needRedirect: false
         }
 
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.checkRedirect = this.checkRedirect.bind(this);
     }
 
     async handleSubmit(event) {
+        event.preventDefault();
         const target = event.target;
         const form = {
             title: target.title.value,
@@ -26,19 +25,19 @@ export default class AddStore extends React.Component {
             phone: target.phone.value,
             owner: target.owner.value,
         }
-        await api.addStore(form);
-        this.setState({ needRedirect: true});
-    }
-
-    checkRedirect() {
-        if (this.state.needRedirect) 
-            return (<Redirect to="/store/list" />)
+        try {
+            const res = await api.addStore(form);
+            // console.log(res);
+            this.props.history.push('/store/list');
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
 
     render() {
         return (
             <div>
-                {this.checkRedirect()}
                 <Header title="Update Store" />
                 <Form noValidate onSubmit={this.handleSubmit}>
                     <Form.Group as={Col} md="4" controlId="validationCustom01">
